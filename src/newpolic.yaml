@@ -3,7 +3,7 @@ kind: ClusterPolicy
 metadata:
   labels:
     app.kubernetes.io/instance: kyverno-policies
-  name: ImageLatestTag
+  name: imagelatestatag
 spec:
   validationFailureAction: enforce
   rules:
