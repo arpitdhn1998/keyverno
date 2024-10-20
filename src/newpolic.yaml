@@ -1,18 +1,22 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
+  labels:
+    app.kubernetes.io/instance: kyverno-policies
   name: ImageLatestTag
 spec:
-  validationFailureAction: Enforce
+  validationFailureAction: enforce
   rules:
-    - name: check-label
+    - name: check-image-latest-tag
       match:
         resources:
           kinds:
             - Deployment
       validate:
-        message: "Every resource should have the latest code deployed "
+        message: 'Every container in the Deployment must use an image tagged with "latest".'
         pattern:
-         spec:
-          containers:
-           image: "*:latest"
+          spec:
+            template:
+              spec:
+                containers:
+                  - image: '*:latest'
